@@ -5,8 +5,7 @@
  */
 package com.vitaliivitrenko.theatre.web;
 
-import com.vitaliivitrenko.theatre.model.data.Dao;
-import com.vitaliivitrenko.theatre.model.domain.User;
+import com.vitaliivitrenko.theatre.model.data.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +22,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping({"/", "/home"})
 public class HomeController {
 
-    private Dao<User, Long> userDao;
+    private UserRepository userRepository;
 
     @Inject
-    public HomeController(Dao<User, Long> userDao) {
-        this.userDao = userDao;
+    public HomeController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(method = GET)
     public String showHome(Model model) {
-        model.addAttribute("user", userDao.read(1l));
+        userRepository.find();
         return "home";
     }
 

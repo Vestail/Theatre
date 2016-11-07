@@ -2,12 +2,10 @@ package com.vitaliivitrenko.theatre.model.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NavigableMap;
-import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeMap;
-import java.util.TreeSet;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Yuriy_Tkach
@@ -19,6 +17,8 @@ public class Event extends DomainObject {
     private double basePrice;
 
     private EventRating rating;
+
+    private List<Ticket> tickets;
 
     private NavigableMap<LocalDateTime, AirDate> airDates = new TreeMap<>();
 

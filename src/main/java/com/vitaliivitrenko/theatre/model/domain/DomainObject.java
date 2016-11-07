@@ -1,10 +1,17 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
- * @author Yuriy_Tkach
+ * @author Yuriy_Tkach, Vitalii Vitrenko
  */
+@MappedSuperclass
 public class DomainObject {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     public Long getId() {

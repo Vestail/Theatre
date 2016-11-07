@@ -1,13 +1,16 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.NavigableSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
  * @author Yuriy_Tkach
  */
+@Entity(name = "User")
 public class User extends DomainObject {
 
     private String firstName;
@@ -18,7 +21,10 @@ public class User extends DomainObject {
 
     private LocalDate birthday;
 
-    private NavigableSet<Ticket> tickets = new TreeSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OrderBy("purchaseDate")
+    @Access(AccessType.PROPERTY)
+    private Set<Ticket> tickets = new TreeSet<>();
 
     public LocalDate getBirthday() {
         return birthday;
@@ -52,7 +58,7 @@ public class User extends DomainObject {
         this.email = email;
     }
 
-    public NavigableSet<Ticket> getTickets() {
+    public Set<Ticket> getTickets() {
         return tickets;
     }
 

@@ -1,13 +1,19 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * @author Yuriy_Tkach
  */
+@Entity
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private User user;
 
     private Event event;
