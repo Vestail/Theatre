@@ -12,14 +12,11 @@ import java.util.List;
 
 public class JpaCrudRepository<T, PK extends Serializable> implements CrudRepository<T, PK> {
 
-    private static String COUNT_QUERY = "SELECT count(e) FROM %s e";
-
+    private static final String COUNT_QUERY = "SELECT count(e) FROM %s e";
+    private final Class<T> entityClass;
     private boolean flushOnCreate = true;
-
     @PersistenceContext
     private EntityManager entityManager;
-
-    private Class<T> entityClass;
 
     public JpaCrudRepository(Class<T> entityClass) {
         this.entityClass = entityClass;

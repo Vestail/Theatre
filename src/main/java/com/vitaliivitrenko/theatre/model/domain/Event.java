@@ -1,26 +1,27 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.NavigableMap;
 import java.util.Objects;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
-/**
- * @author Yuriy_Tkach
- */
+@Entity
 public class Event extends DomainObject {
 
     private String name;
 
     private double basePrice;
 
+    @Enumerated(EnumType.STRING)
     private EventRating rating;
 
-    private List<Ticket> tickets;
-
-    private NavigableMap<LocalDateTime, AirDate> airDates = new TreeMap<>();
+    @OneToMany(mappedBy = "event")
+    @OrderBy("dateTime")
+    @MapKey(name = "dateTime")
+    private SortedMap<LocalDateTime, AirDate> airDates = new TreeMap<>();
 
 
     /**

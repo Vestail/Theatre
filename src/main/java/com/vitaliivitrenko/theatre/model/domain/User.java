@@ -2,15 +2,16 @@ package com.vitaliivitrenko.theatre.model.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.NavigableSet;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * @author Yuriy_Tkach
  */
-@Entity(name = "User")
+@Entity
+@Table(name = "\"user\"")
 public class User extends DomainObject {
 
     private String firstName;
@@ -21,10 +22,10 @@ public class User extends DomainObject {
 
     private LocalDate birthday;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("purchaseDate")
-    @Access(AccessType.PROPERTY)
-    private Set<Ticket> tickets = new TreeSet<>();
+    @MapKey(name = "purchaseDate")
+    private SortedMap<LocalDate, Ticket> tickets = new TreeMap<>();
 
     public LocalDate getBirthday() {
         return birthday;
@@ -58,12 +59,12 @@ public class User extends DomainObject {
         this.email = email;
     }
 
-    public Set<Ticket> getTickets() {
+    public SortedMap<LocalDate, Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(NavigableSet<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setTickets(Map<LocalDate, Ticket> tickets) {
+        this.tickets = new TreeMap<>(tickets);
     }
 
     @Override

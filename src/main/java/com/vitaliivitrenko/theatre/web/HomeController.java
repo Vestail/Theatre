@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping({"/", "/home"})
 public class HomeController {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Inject
     public HomeController(UserRepository userRepository) {

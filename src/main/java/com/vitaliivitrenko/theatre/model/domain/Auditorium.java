@@ -1,5 +1,9 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -7,15 +11,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-/**
- * @author Yuriy_Tkach
- */
+@Entity
 public class Auditorium extends DomainObject {
 
     private String name;
 
     private long numberOfSeats;
 
+    @ElementCollection
+    @CollectionTable(name = "seats")
+    @Column(name = "seat_number")
     private Set<Long> vipSeats = Collections.emptySet();
 
     public Auditorium() {

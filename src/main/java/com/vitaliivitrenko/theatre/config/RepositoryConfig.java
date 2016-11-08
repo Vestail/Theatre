@@ -20,9 +20,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Vitalii_Vitrenko on 9/13/2016.
- */
 @Configuration
 public class RepositoryConfig {
 

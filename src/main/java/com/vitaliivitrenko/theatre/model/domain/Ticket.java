@@ -6,80 +6,71 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * @author Yuriy_Tkach
- */
 @Entity
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(nullable = false)
     private User user;
 
-    private Event event;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private AirDate airDate;
 
     private LocalDateTime purchaseDate;
 
     private long seat;
 
-    public Ticket(User user, Event event, LocalDateTime dateTime, long seat) {
-        this.user = user;
-        this.event = event;
-        this.purchaseDate = dateTime;
-        this.seat = seat;
-    }
-
     public User getUser() {
         return user;
     }
 
-    public Event getEvent() {
-        return event;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public AirDate getAirDate() {
+        return airDate;
+    }
+
+    public void setAirDate(AirDate airDate) {
+        this.airDate = airDate;
     }
 
     public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
     public long getSeat() {
         return seat;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(purchaseDate, event, seat);
+    public void setSeat(long seat) {
+        this.seat = seat;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public int hashCode() {
+        return Objects.hash(purchaseDate, airDate, seat);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (getSeat() != ticket.getSeat()) return false;
+        if (getUser() != null ? !getUser().equals(ticket.getUser()) : ticket.getUser() != null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Ticket other = (Ticket) obj;
-        if (purchaseDate == null) {
-            if (other.purchaseDate != null) {
-                return false;
-            }
-        } else if (!purchaseDate.equals(other.purchaseDate)) {
-            return false;
-        }
-        if (event == null) {
-            if (other.event != null) {
-                return false;
-            }
-        } else if (!event.equals(other.event)) {
-            return false;
-        }
-        if (seat != other.seat) {
-            return false;
-        }
-        return true;
+        return getAirDate() != null ? getAirDate().equals(ticket.getAirDate()) : ticket.getAirDate() == null && (getPurchaseDate() != null ? getPurchaseDate().equals(ticket.getPurchaseDate()) : ticket.getPurchaseDate() == null);
+
     }
 
     @Override
@@ -90,7 +81,7 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         int result = purchaseDate.compareTo(other.getPurchaseDate());
 
         if (result == 0) {
-            result = event.getName().compareTo(other.getEvent().getName());
+            result = airDate.getId().compareTo(other.getAirDate().getId());
         }
         if (result == 0) {
             result = Long.compare(seat, other.getSeat());
@@ -100,8 +91,8 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     @Override
     public String toString() {
-        return super.toString() + ", user=" + user + ", event=" + event + ", purchaseDate=" + purchaseDate + ", seat=" + seat;
+        return super.toString() + ", user=" + user + ", AirDate=" + airDate + ", purchaseDate=" + purchaseDate + ", seat=" + seat;
     }
 
-    
+
 }
