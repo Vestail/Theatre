@@ -19,7 +19,7 @@ public class Auditorium extends DomainObject {
     private long numberOfSeats;
 
     @ElementCollection
-    @CollectionTable(name = "seats")
+    @CollectionTable(name = "vip_seat")
     @Column(name = "seat_number")
     private Set<Long> vipSeats = Collections.emptySet();
 

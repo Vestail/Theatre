@@ -18,7 +18,7 @@ public class Event extends DomainObject {
     @Enumerated(EnumType.STRING)
     private EventRating rating;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", orphanRemoval = true)
     @OrderBy("dateTime")
     @MapKey(name = "dateTime")
     private SortedMap<LocalDateTime, AirDate> airDates = new TreeMap<>();
