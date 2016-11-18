@@ -1,10 +1,8 @@
 package com.vitaliivitrenko.theatre.model.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class AirDate extends DomainObject {
@@ -18,6 +16,9 @@ public class AirDate extends DomainObject {
     @ManyToOne(optional = false)
     @JoinColumn
     private Event event;
+
+    @OneToMany(mappedBy = "airDates", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Ticket> tickets;
 
     public LocalDateTime getDateTime() {
         return dateTime;

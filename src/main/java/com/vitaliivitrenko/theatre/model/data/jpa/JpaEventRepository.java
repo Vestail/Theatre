@@ -10,4 +10,5 @@ public class JpaEventRepository extends JpaCrudRepository<Event, Long> implement
     public JpaEventRepository() {
         super(Event.class);
     }
+
 }

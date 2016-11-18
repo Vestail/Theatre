@@ -2,10 +2,10 @@ package com.vitaliivitrenko.theatre.model.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @author Yuriy_Tkach
@@ -24,8 +24,7 @@ public class User extends DomainObject {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("purchaseDate")
-    @MapKey(name = "purchaseDate")
-    private SortedMap<LocalDate, Ticket> tickets = new TreeMap<>();
+    private SortedSet<Ticket> tickets = new TreeSet<>();
 
     public LocalDate getBirthday() {
         return birthday;
@@ -59,12 +58,12 @@ public class User extends DomainObject {
         this.email = email;
     }
 
-    public SortedMap<LocalDate, Ticket> getTickets() {
+    public SortedSet<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Map<LocalDate, Ticket> tickets) {
-        this.tickets = new TreeMap<>(tickets);
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = new TreeSet<>(tickets);
     }
 
     @Override

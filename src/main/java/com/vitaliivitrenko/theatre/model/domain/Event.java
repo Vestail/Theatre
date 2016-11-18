@@ -23,7 +23,6 @@ public class Event extends DomainObject {
     @MapKey(name = "dateTime")
     private SortedMap<LocalDateTime, AirDate> airDates = new TreeMap<>();
 
-
     /**
      * Add air date to event if there is no air date on airDate.getDateTime()
      * 
